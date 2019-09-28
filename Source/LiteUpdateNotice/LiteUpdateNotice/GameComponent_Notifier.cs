@@ -10,7 +10,7 @@ namespace LiteUpdateNotice
     {
         private bool LetterStackContains(LetterDef def)
         {
-            foreach(Letter let in Find.LetterStack.LettersListForReading) if (let.def == def) return true;               
+            foreach(Letter let in Find.LetterStack.LettersListForReading) if (let.label.Equals(def.label)) return true;               
             return false;
         }
         public GameComponent_Notifier(Game game)

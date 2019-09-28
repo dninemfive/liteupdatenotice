@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Verse;
+
+namespace LiteUpdateNotice
+{
+    class GameComponent_Notifier : GameComponent
+    {
+        private bool LetterStackContains(LetterDef def)
+        {
+            foreach(Letter let in Find.LetterStack.LettersListForReading) if (let.def == def) return true;               
+            return false;
+        }
+        public GameComponent_Notifier(Game game)
+        {
+        }
+        public override void StartedNewGame()
+        {
+            base.StartedNewGame();
+            TrySendNotification();
+        }
+        public override void LoadedGame()
+        {
+            base.LoadedGame();
+            TrySendNotification();
+        }
+        public void TrySendNotification()
+        {
+            if (!LoadTracker.NotificationSent)
+            {
+                foreach (NoticeDef def in DefDatabase<NoticeDef>.AllDefsListForReading) if (!LetterStackContains(def.letter)) Find.LetterStack.ReceiveLetter(def.LabelCap, def.description, def.letter);
+                LoadTracker.NotificationSent = true;
+            }
+        }
+    }
+}

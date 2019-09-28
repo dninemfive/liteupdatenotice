@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<LiteUpdateNotice.NoticeDef>
+		<defName>TestNotice</defName>
+		<label>TEST</label>
+		<description>NOTICE</description>
+		<letter>D9UpdateNotice</letter>
+	</LiteUpdateNotice.NoticeDef>
+</Defs>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ModMetaData>
-  <name>Lite Update Notice</name>
-  <author>dninemfive</author>
-  <supportedVersions><li>1.0</li></supportedVersions>
-  <description>Mod framework letting authors easily deploy update notices on mods which don't have HugsLib as a dependency. Useful for announcing things such as future HugsLib requirements.</description>
-</ModMetaData>

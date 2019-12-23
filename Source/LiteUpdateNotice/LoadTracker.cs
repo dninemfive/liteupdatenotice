@@ -12,25 +12,31 @@ namespace LiteUpdateNotice
     public class LoadTracker
     {
         public static bool NotificationSent = false;
-        public static string version;        
         public static bool VersionExists => version != null;
+        public static string version = null;        
 
-        public static string ModName = null;
-        public static string filename = null;
+        public static string ModName = null, ModID = null;
+        public static string FileName
+        {
+            get
+            {
+                if (ModName == null || ModID == null) return null;
+                return Path.Combine(GenFilePaths.ConfigFolderPath, GenText.SanitizeFilename("LiteUpdateNotice_" + ModID + "_" + ModName));
+            }
+        }
 
         LoadTracker()
         {
-            string filename = "";
-            ModName = GetModName();
+            GetModInfo();
             if (ModName == null)
             {
                 Log.Error("[LiteUpdateNotice] ModName was null. This shouldn't happen!");
             }
             else
             {
-                version = null;
                 try
                 {
+                    string filename = FileName;
                     if (File.Exists(filename))
                     {
                         Scribe.loader.InitLoading(filename);
@@ -51,14 +57,18 @@ namespace LiteUpdateNotice
             }
         }
 
-        public static string GetModName()
+        public static void GetModInfo()
         {
             Assembly current = typeof(LoadTracker).Assembly;
             foreach(ModContentPack mcp in LoadedModManager.RunningMods)
             {
-                foreach (Assembly a in mcp.assemblies.loadedAssemblies) if (a == current) return mcp.Name;
+                foreach (Assembly a in mcp.assemblies.loadedAssemblies) if (a == current)
+                    {
+                        ModName = mcp.Name;
+                        ModID = mcp.Identifier;
+                        return;
+                    }
             }
-            return null;
         }
     }
 }

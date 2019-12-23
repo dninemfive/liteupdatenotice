@@ -10,7 +10,7 @@ namespace LiteUpdateNotice
     {
         private bool LetterStackContains(LetterDef def)
         {
-            foreach(Letter let in Find.LetterStack.LettersListForReading) if (let.label.Equals(def.label)) return true;               
+            foreach (Letter let in Find.LetterStack.LettersListForReading) if (let.label.Equals(def.label)) return true;               
             return false;
         }
         public GameComponent_Notifier(Game game)
@@ -35,7 +35,7 @@ namespace LiteUpdateNotice
         {
             if (!LoadTracker.NotificationSent)
             {
-                foreach (NoticeDef def in DefDatabase<NoticeDef>.AllDefsListForReading) if (!LetterStackContains(def.letter)) Find.LetterStack.ReceiveLetter(def.LabelCap, def.description, def.letter);
+                foreach (NoticeDef def in LoadTracker.thisModNotices) if (!LetterStackContains(def.letter)) Find.LetterStack.ReceiveLetter(def.LabelCap, def.description, def.letter);
                 LoadTracker.NotificationSent = true;
             }
         }

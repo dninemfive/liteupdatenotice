@@ -6,7 +6,7 @@ using Verse;
 
 namespace LiteUpdateNotice
 {
-    class NoticeDef : Def
+    public class NoticeDef : Def
     {
 #pragma warning disable CS0649
         public LetterDef letter;

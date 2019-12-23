@@ -24,6 +24,7 @@ namespace LiteUpdateNotice
                 return Path.Combine(GenFilePaths.ConfigFolderPath, GenText.SanitizeFilename("LiteUpdateNotice_" + ModID + "_" + ModName));
             }
         }
+        public static List<NoticeDef> thisModNotices;
 
         LoadTracker()
         {
@@ -66,6 +67,12 @@ namespace LiteUpdateNotice
                     {
                         ModName = mcp.Name;
                         ModID = mcp.Identifier;
+                        //TODO: make sure Defs are even loaded at the stage where [StaticConstructorOnStartup] constructors are called
+                        thisModNotices = new List<NoticeDef>();
+                        foreach(NoticeDef def in mcp.AllDefs.OfType<NoticeDef>())
+                        {
+                            thisModNotices.Add(def);
+                        }
                         return;
                     }
             }
